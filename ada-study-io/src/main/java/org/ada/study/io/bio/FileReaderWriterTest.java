@@ -1,4 +1,4 @@
-package com.ada.study.java.io.bio;
+package org.ada.study.io.bio;
 
 import java.io.FileInputStream;
 import java.io.PrintWriter;
