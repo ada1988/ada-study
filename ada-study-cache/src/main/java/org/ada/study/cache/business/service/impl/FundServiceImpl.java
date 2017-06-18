@@ -18,10 +18,14 @@ import org.springframework.stereotype.Component;
  */
 @Component("fundService")
 public class FundServiceImpl implements IFundService{
-	@Override
-	@Cacheable(cacheNames=AdaCacheConstant.FUND_PC_DETAIL,key="#id")
+	
+	@Cacheable(cacheNames=AdaCacheConstant.FUND_PC_DETAIL,key="'"+AdaCacheConstant.FUND_PC_DETAIL+"'+'queryDetailById.'+#id")
 	public String queryDetailById(String id) {
 		return "IFundService  DB 数据!";
+	}
+	@Cacheable(cacheNames=AdaCacheConstant.FUND_PC_DETAIL,key="'"+AdaCacheConstant.FUND_PC_DETAIL+"'+'queryDetailById2.'+#id")
+	public String queryDetailById2(String id) {
+		return "IFundService2  DB 数据!";
 	}
 
 }

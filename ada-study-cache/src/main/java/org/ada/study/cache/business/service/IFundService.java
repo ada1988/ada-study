@@ -20,4 +20,6 @@ public interface IFundService {
 	 * @Createtime: 2017年6月18日
 	 */
 	public String queryDetailById(String id);
+	
+	public String queryDetailById2(String id);
 }

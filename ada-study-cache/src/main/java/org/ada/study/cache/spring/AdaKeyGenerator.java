@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
  *
  * Description:  自定义缓存键生成器 <br>
  * 
+ * 未被调用
+ * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 
  * @Createtime: 2017年6月18日 <br>
  *
  *  
  */
-@Component("adaKeyGenerator")
 public class AdaKeyGenerator implements KeyGenerator{
 	 @Override  
      public Object generate(Object o, Method method, Object... objects) {  

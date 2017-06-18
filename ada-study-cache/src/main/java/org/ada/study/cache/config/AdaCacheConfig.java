@@ -73,7 +73,8 @@ public class AdaCacheConfig extends CachingConfigurerSupport{
 		}
 		return caches;
 	}
-	@Bean  
+	@Bean("defaultKeyGenerator")
+	@Override
 	public KeyGenerator keyGenerator() {
 		return new AdaKeyGenerator();
 	}

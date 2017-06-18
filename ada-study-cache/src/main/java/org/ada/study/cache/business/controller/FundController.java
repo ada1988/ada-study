@@ -29,6 +29,11 @@ public class FundController {
 	public String detailJson(@PathVariable("id") String id){
 		return fundService.queryDetailById( id );
 	}
+	@RequestMapping("/fund/detail2/{id}")
+	@ResponseBody
+	public String detailJson2(@PathVariable("id") String id){
+		return fundService.queryDetailById2( id );
+	}
 	
 	@RequestMapping("/fund/null/detail")
 	@ResponseBody
