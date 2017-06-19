@@ -1,4 +1,4 @@
-package org.ada.study.cache.config;
+package org.ada.study.cache.config.cache;
 
 import java.util.ArrayList;
 import java.util.Collection;

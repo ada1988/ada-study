@@ -1,4 +1,7 @@
 package org.ada.study.cache.business.entity;
+
+import java.io.Serializable;
+
 /**  
  * Filename: FundBean.java  <br>
  *
@@ -11,7 +14,9 @@ package org.ada.study.cache.business.entity;
  *  
  */
 
-public class FundBean {
+public class FundBean implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String id;
 	private String name;
 	public FundBean(String id, String name) {

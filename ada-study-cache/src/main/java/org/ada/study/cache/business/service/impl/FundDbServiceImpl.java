@@ -21,19 +21,17 @@ import org.springframework.stereotype.Component;
 @Component("fundDbService")
 public class FundDbServiceImpl implements IFundDbService {
 
-	private List<FundBean>	dbFunds	= Arrays.asList( new FundBean( "001", "基金 001 名称" ),new FundBean( "002", "基金 002 名称" ), new FundBean( "003", "基金 003 名称" ) );
+	private List<FundBean>	dbFunds	= Arrays.asList( new FundBean( "001", "基金 001 名称" ), new FundBean( "002", "基金 002 名称" ), new FundBean( "003",
+											"基金 003 名称" ) );
 
 	public FundBean queryDetailById(String id) {
-		if (dbFunds.contains( id )) {
-			for (FundBean fund : dbFunds) {
-				if (fund.getId().equals( id ))
-					return fund;
-			}
+		for (FundBean fund : dbFunds) {
+			if (fund.getId().equals( id ))
+				return fund;
 		}
 		return null;
 	}
 
-	@Override
 	public List<FundBean> queryAllFund() {
 		return dbFunds;
 	}

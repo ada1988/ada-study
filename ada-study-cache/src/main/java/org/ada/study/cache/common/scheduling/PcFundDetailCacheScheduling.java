@@ -3,7 +3,6 @@ package org.ada.study.cache.common.scheduling;
 import java.util.List;
 
 import org.ada.study.cache.business.entity.FundBean;
-import org.ada.study.cache.business.service.IFundDbService;
 import org.ada.study.cache.business.service.IFundLocalCacheService;
 import org.ada.study.cache.business.service.IFundRemoteRedisService;
 import org.slf4j.Logger;
