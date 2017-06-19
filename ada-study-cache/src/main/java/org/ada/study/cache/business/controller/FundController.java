@@ -1,6 +1,7 @@
 package org.ada.study.cache.business.controller;
 
-import org.ada.study.cache.business.service.IFundService;
+import org.ada.study.cache.business.entity.FundBean;
+import org.ada.study.cache.business.service.IFundLocalCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,22 +23,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FundController {
 	
 	@Autowired
-	private IFundService fundService;
+	private IFundLocalCacheService fundLocalCacheService;
 	
 	@RequestMapping("/fund/detail/{id}")
 	@ResponseBody
-	public String detailJson(@PathVariable("id") String id){
-		return fundService.queryDetailById( id );
-	}
-	@RequestMapping("/fund/detail2/{id}")
-	@ResponseBody
-	public String detailJson2(@PathVariable("id") String id){
-		return fundService.queryDetailById2( id );
+	public FundBean detailJson(@PathVariable("id") String id){
+		return fundLocalCacheService.queryLocalDetailById( id );
 	}
 	
 	@RequestMapping("/fund/null/detail")
 	@ResponseBody
-	public String detailKeyNullJson(){
-		return fundService.queryDetailById( null );
+	public FundBean detailKeyNullJson(){
+		return fundLocalCacheService.queryLocalDetailById( null );
 	}
 }

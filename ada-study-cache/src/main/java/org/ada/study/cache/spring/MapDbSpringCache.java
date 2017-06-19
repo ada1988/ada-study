@@ -54,8 +54,8 @@ public class MapDbSpringCache extends AbstractValueAdaptingCache {
 		this(name, db
                 .hashMapCreate(name)
                 .expireMaxSize(1000)
-                .expireAfterWrite(2, TimeUnit.HOURS)
-                .expireAfterAccess(2, TimeUnit.HOURS)
+                //.expireAfterWrite(2, TimeUnit.HOURS)
+                //.expireAfterAccess(2, TimeUnit.HOURS)
                 .make(), true);
 		logger.info("MapDbSpringCache 构造器1个参数"+name);
 	}
@@ -72,8 +72,8 @@ public class MapDbSpringCache extends AbstractValueAdaptingCache {
 		this(name, db
                 .hashMapCreate(name)
                 .expireMaxSize(1000)
-                .expireAfterWrite(2, TimeUnit.HOURS)
-                .expireAfterAccess(2, TimeUnit.HOURS)
+                //.expireAfterWrite(2, TimeUnit.HOURS)
+                //.expireAfterAccess(2, TimeUnit.HOURS)
                 .make(), allowNullValues);
 		logger.info("MapDbSpringCache 构造器2个参数"+name+","+allowNullValues);
 	}

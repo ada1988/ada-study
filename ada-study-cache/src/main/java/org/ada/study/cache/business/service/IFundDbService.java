@@ -1,8 +1,13 @@
 package org.ada.study.cache.business.service;
+
+import java.util.List;
+
+import org.ada.study.cache.business.entity.FundBean;
+
 /**  
  * Filename: IFundService.java  <br>
  *
- * Description:  基金 业务 <br>
+ * Description:  DB获取基金业务 <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 
@@ -11,7 +16,7 @@ package org.ada.study.cache.business.service;
  *  
  */
 
-public interface IFundService {
+public interface IFundDbService {
 	/**
 	 * 通过基金编码，获取基金详情
 	 * @param fundId
@@ -19,7 +24,13 @@ public interface IFundService {
 	 * @author: CZD  
 	 * @Createtime: 2017年6月18日
 	 */
-	public String queryDetailById(String id);
+	public FundBean queryDetailById(String id);
 	
-	public String queryDetailById2(String id);
+	/**
+	 * 获取所有基金
+	 * @return
+	 * @author: CZD  
+	 * @Createtime: 2017年6月19日
+	 */
+	public List<FundBean> queryAllFund();
 }
