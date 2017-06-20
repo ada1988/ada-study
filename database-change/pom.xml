@@ -8,7 +8,7 @@
 		<artifactId>ada-study</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>database-change</artifactId>
+	<artifactId>ada-study-database-change</artifactId>
 	<name>database-change</name>
 	<url>http://maven.apache.org</url>
 	<properties>

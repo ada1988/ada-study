@@ -20,7 +20,7 @@
   <modules>
     <module>ada-study-io</module>
     <module>ada-study-cache</module>
-    <module>database-change</module>
+    <module>ada-study-database-change</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
