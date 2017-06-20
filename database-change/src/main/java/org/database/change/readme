@@ -1,0 +1,9 @@
+1、show master status;
+获取position  
+2、修改canal/conf/miduo-product/instance.properties
+canal.instance.master.position = 1获得position
+3、启动（保证后台运行、并且配置文件为自定义配置文件）
+nohup java -jar database-change.jar --spring.config.location=conf/application.properties &
+
+项目描述：监控数据库变动，根据不同监听者，处理不同业务。
+业务：仅处理表的增删改操作，对于表结构变动，不做处理；对应事务不做处理
