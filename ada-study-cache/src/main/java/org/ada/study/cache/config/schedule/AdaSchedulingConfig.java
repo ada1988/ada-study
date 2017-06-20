@@ -7,7 +7,6 @@ import org.ada.study.cache.business.service.IFundDbService;
 import org.ada.study.cache.common.constant.RedisPrefixContant;
 import org.ada.study.cache.common.scheduling.PcFundDetailCacheScheduling;
 import org.ada.study.cache.common.support.RedisCacheClient;
-import org.redisson.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,7 @@ import org.springframework.scheduling.annotation.Scheduled;
  */
 @Configuration
 @EnableScheduling
-public class MdSchedulingConfig {
+public class AdaSchedulingConfig {
 	
 	@Autowired
 	private PcFundDetailCacheScheduling pcFundDetailCacheScheduling;
