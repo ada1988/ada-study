@@ -2,10 +2,10 @@ package org.ada.study.cache.common.support;
 
 import org.redisson.Config;
 
-public class MiduoRedissonConfig extends Config {
+public class AdaRedissonConfig extends Config {
 
 	@SuppressWarnings("deprecation")
-	public MiduoRedissonConfig(MiduoClusterServersConfig miduoClusterServersConfig){
+	public AdaRedissonConfig(AdaClusterServersConfig miduoClusterServersConfig){
 		super();
 		useClusterServers(miduoClusterServersConfig);
 	}

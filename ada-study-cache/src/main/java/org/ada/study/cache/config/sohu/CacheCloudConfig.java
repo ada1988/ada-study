@@ -2,8 +2,8 @@ package org.ada.study.cache.config.sohu;
 
 
 
-import org.ada.study.cache.common.support.MiduoClusterServersConfig;
-import org.ada.study.cache.common.support.MiduoRedissonConfig;
+import org.ada.study.cache.common.support.AdaClusterServersConfig;
+import org.ada.study.cache.common.support.AdaRedissonConfig;
 import org.ada.study.cache.common.support.RedisCacheClient;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.redisson.Redisson;
@@ -47,13 +47,13 @@ public class CacheCloudConfig {
 	}
 	
 	@Bean("miduoClusterServersConfig")
-	public MiduoClusterServersConfig miduoClusterServersConfig(){
-		return new MiduoClusterServersConfig( properties.getAppid().toString(), properties.getScanInterval() );
+	public AdaClusterServersConfig miduoClusterServersConfig(){
+		return new AdaClusterServersConfig( properties.getAppid().toString(), properties.getScanInterval() );
 	}
 	
 	@Bean("miduoRedissonConfig")
-	public MiduoRedissonConfig miduoRedissonConfig(){
-		return new MiduoRedissonConfig( miduoClusterServersConfig() );
+	public AdaRedissonConfig miduoRedissonConfig(){
+		return new AdaRedissonConfig( miduoClusterServersConfig() );
 	}
 	
 	@Bean("redisson")

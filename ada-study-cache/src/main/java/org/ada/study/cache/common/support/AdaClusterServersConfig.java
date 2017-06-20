@@ -12,13 +12,13 @@ import com.sohu.tv.cachecloud.client.basic.heartbeat.HeartbeatInfo;
 import com.sohu.tv.cachecloud.client.basic.util.ConstUtils;
 import com.sohu.tv.cachecloud.client.basic.util.HttpUtils;
 
-public class MiduoClusterServersConfig extends ClusterServersConfig {
+public class AdaClusterServersConfig extends ClusterServersConfig {
 	
-	private Logger logger = LoggerFactory.getLogger(MiduoClusterServersConfig.class);
+	private Logger logger = LoggerFactory.getLogger(AdaClusterServersConfig.class);
 
 	private String appId;
 	
-	public MiduoClusterServersConfig(String appId,Integer scanInterval){
+	public AdaClusterServersConfig(String appId,Integer scanInterval){
 		super();
 		setScanInterval(scanInterval);
 		this.appId = appId;
