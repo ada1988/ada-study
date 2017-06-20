@@ -9,7 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>ada-study-database-change</artifactId>
-	<name>database-change</name>
+	<name>ada-study-database-change</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -50,7 +50,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-
 		<finalName>database-change</finalName>
 		<plugins>
 			<!-- 设置源文件编码方式 -->
