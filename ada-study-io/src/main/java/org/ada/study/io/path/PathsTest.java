@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 
 public class PathsTest {
 	public static void main(String[] args) throws IOException{
-		System.out.println(Paths.get( "d:/" ));
+		System.out.println(Paths.get( "" ).toAbsolutePath());//转换成绝对路径
 		System.out.println(Paths.get( "d:/aa.txt" ).toFile());//Path 转File
 		System.out.println(new File(Files.createTempFile( null, ".txt" ).toString()).toPath());// File转Path
 	}

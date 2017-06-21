@@ -35,29 +35,33 @@ public class FileReadSpeedTest {
 	 * @Createtime: 2017年6月20日
 	 */
 	public static void main(String[] args)  throws IOException{
-		//String path = "D:\\java_source\\jdk_home\\java7\\jdk1.7.0_79\\jre\\lib\\rt.jar";
-		String path = "D:\\java_source\\jdk_home\\java7\\jdk1.7.0_79\\jre\\lib\\plugin.jar";
+		String path = "G:\\ada_work\\jdk_home\\jdk1.7\\jre\\lib\\rt.jar";
+		Path fileName = Paths.get( path );
+		//String path = "D:\\java_source\\jdk_home\\java7\\jdk1.7.0_79\\jre\\lib\\plugin.jar";
 		System.out.println( "Input Stream:" );
 		long start = System.currentTimeMillis();
-		Path fileName = Paths.get( path );
+		
 		long crcValue = checksumInputString( fileName );
 		long end = System.currentTimeMillis();
 		System.out.println(Long.toHexString( crcValue ));
 		System.out.println((end-start) + " milliseconds");
 		
 		System.out.println( "BufferedInputStream:" );
+		start = System.currentTimeMillis();
 		crcValue = checksumBufferedInputStream( fileName );
 		end = System.currentTimeMillis();
 		System.out.println(Long.toHexString( crcValue ));
 		System.out.println((end-start) + " milliseconds");
 		
 		System.out.println( "RandomInputStream:" );
+		start = System.currentTimeMillis();
 		crcValue = checksumRandomInputStream( fileName );
 		end = System.currentTimeMillis();
 		System.out.println(Long.toHexString( crcValue ));
 		System.out.println((end-start) + " milliseconds");
 		
 		System.out.println( "MappedFile:" );
+		start = System.currentTimeMillis();
 		crcValue = checksumMappedFile( fileName );
 		end = System.currentTimeMillis();
 		System.out.println(Long.toHexString( crcValue ));

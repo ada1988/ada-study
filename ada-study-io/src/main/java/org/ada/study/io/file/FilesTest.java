@@ -1,5 +1,6 @@
 package org.ada.study.io.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystem;
@@ -9,7 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Arrays;
+import java.util.List;
 
 /**  
  * Filename: FilesTest.java  <br>
@@ -27,8 +31,31 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FilesTest {
 	
-	public static void main(String[] args)  throws IOException{
-		FilesTest.fileSystemTest();
+	public static void main(String[] args)  throws Exception{
+		//FilesTest.fileSystemTest();
+		FilesTest.lineWrite();
+		FilesTest.lineRead();
+	}
+	public static void lineWrite() throws Exception{
+		Path path = Paths.get(System.getProperty( "user.dir" )+File.separator+"target"+File.separator+"classes"+File.separator+"conf" ,"lines.txt").toAbsolutePath();
+		List<String> lines = Arrays.asList( "666","777" );
+		
+		Files.write( path, lines, StandardOpenOption.APPEND );
+	}
+	/**
+	 * 行读取文件
+	 * @throws Exception
+	 * @author: CZD  
+	 * @Createtime: 2017年6月21日
+	 */
+	public static void lineRead() throws Exception{
+		System.out.println(System.getProperty( "user.dir" ));
+		//Paths.get("").toAbsolutePath();  //当前环境的绝对路径
+		Path path = Paths.get(System.getProperty( "user.dir" )+File.separator+"target"+File.separator+"classes"+File.separator+"conf" ,"lines.txt").toAbsolutePath();
+		List<String> lines = Files.readAllLines( path );
+		for(String line:lines){
+			System.out.println(line);
+		}
 	}
 	
 	/**
