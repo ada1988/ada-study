@@ -38,7 +38,7 @@ public class AdaSchedulingConfig {
 	 * @Createtime: 2017年6月19日
 	 */
 	//@Scheduled(initialDelay=5000, fixedRate=1000*60*60*2)// 每2小时执行一次
-	@Scheduled(initialDelay=5000, fixedRate=1000*6)// 6秒钟执行一次
+	//@Scheduled(initialDelay=5000, fixedRate=1000*6)// 6秒钟执行一次
 	public void scheduler() {
 		pcFundDetailCacheScheduling.doWork();
 	}

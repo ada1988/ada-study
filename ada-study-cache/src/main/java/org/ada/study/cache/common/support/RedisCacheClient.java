@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import org.redisson.RedissonClient;
 import org.redisson.core.RLock;
 import org.redisson.core.RReadWriteLock;
+import org.redisson.spring.cache.NullValue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -102,7 +103,8 @@ public class RedisCacheClient{
 		
 		public static <M> byte[] serialize(M value) throws Exception {
 			if (value == null) {
-				throw new NullPointerException("Can't serialize null");
+				//throw new NullPointerException("Can't serialize null");
+				value = (M)"null";
 			}
 			byte[] result = null;
 			ByteArrayOutputStream bos = null;

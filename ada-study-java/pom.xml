@@ -8,8 +8,8 @@
 		<artifactId>ada-study</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>ada-study-io</groupId>
-	<artifactId>ada-study-io</artifactId>
+	<groupId>ada-study-java</groupId>
+	<artifactId>ada-study-java</artifactId>
 	<name>ada-study-io</name>
 	<url>http://maven.apache.org</url>
 	<properties>
