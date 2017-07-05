@@ -10,7 +10,7 @@ import org.ada.study.io.thread.forkjoin.base.RegionBaseTask;
 /**  
  * Filename: RegionTest.java  <br>
  *
- * Description:  测试两个线程同时执行 <br>
+ * Description:  测试两个线程同时执行   分区作业 <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 

@@ -10,7 +10,7 @@ import org.ada.study.io.thread.forkjoin.base.RegionBaseTask;
 /**  
  * Filename: RegionTest.java  <br>
  *
- * Description:   <br>
+ * Description: 测试案例  串行  <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 

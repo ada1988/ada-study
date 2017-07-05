@@ -10,7 +10,7 @@ import java.util.concurrent.RecursiveTask;
 /**  
  * Filename: RegionBaseTask.java  <br>
  *
- * Description:   <br>
+ * Description: 任务分区 基类  <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 
@@ -45,7 +45,7 @@ public class RegionBaseTask<T> extends RecursiveTask<Integer> {
 		this.regionLength = regionLength;
 	}
 	/**
-	 * 
+	 * 进内部使用
 	 * @param datas
 	 * @param name
 	 * @param regionWork

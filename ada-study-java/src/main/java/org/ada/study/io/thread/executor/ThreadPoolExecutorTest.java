@@ -1,4 +1,4 @@
-package org.ada.study.io.thread;
+package org.ada.study.io.thread.executor;
 
 import java.util.ArrayList;
 import java.util.List;
