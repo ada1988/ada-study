@@ -23,6 +23,12 @@ public class Region2Test extends RegionBaseTask<String>{
 	
 	private static final long	serialVersionUID	= 1L;
 
+	/**
+	 * 
+	 * @param datas 分区前的所有数据
+	 * @param name 主任务名称
+	 * @param regionLength 分区中数据大小
+	 */
 	public Region2Test(List<String> datas, String name,Integer regionLength) {
 		super( datas, name ,new SubTaskWork(),regionLength);
 	}
@@ -54,15 +60,15 @@ public class Region2Test extends RegionBaseTask<String>{
 	 */
 	public static void main(String[] args) {
 		List<String> funds = new ArrayList<String>();
-		for (int i = 0; i < 101; i++) {
+		for (int i = 0; i < 10; i++) {
 			funds.add( "main-1-fund-" + i );
 		}
 		
-		Integer count = new ForkJoinPool().invoke(new Region2Test(funds,"thread-main-1",40));
+		Integer count = new ForkJoinPool().invoke(new Region2Test(funds,"thread-main-1",400));
 		System.out.println("开启任务个数："+count);
 		
 		List<String> funds2 = new ArrayList<String>();
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 10; i++) {
 			funds2.add( "main-2-fund-" + i );
 		}
 		count = new ForkJoinPool().invoke(new RegionTest(funds2,"thread-main-2",20));

@@ -11,7 +11,7 @@ import java.util.concurrent.RecursiveTask;
  * Filename: RegionBaseTask.java  <br>
  *
  * Description: 任务分区 基类  <br>
- * 
+ * ExcuteService解决的是并发问题，而ForkJoinPool解决的是并行问题
  * @author: CZD <br> 
  * @version: 1.0 <br> 
  * @Createtime: 2017年7月4日 <br>
@@ -81,15 +81,17 @@ public class RegionBaseTask<T> extends RecursiveTask<Integer> {
 				dataRegion(subDatas,subTasks);//递归：数据分区，分割子任务
 		}else{
 			subTasks.add( new RegionBaseTask<T>( subDatas.subList( 0, subDatas.size() ) ,this.mainName,this.mainName+"-task-"+taskNums.get( mainName ),this.regionWork,this.regionLength));
+			taskNums.put( mainName, taskNums.get( mainName ) + 1 );//任务序号
 		}
 			
 	}
 	
 	@Override
 	protected Integer compute() {
+		
+		
 		// 分割子线程
 		List<RegionBaseTask<T>> subTasks = new ArrayList<RegionBaseTask<T>>();
-		
 		/**
 		 * 首次执行，递归分区，分任务
 		 */
@@ -105,7 +107,7 @@ public class RegionBaseTask<T> extends RecursiveTask<Integer> {
 				subTask.join();//等待完成
 				System.out.println("任务名称："+subTask.getSubName()+"  数据大小："+subTask.getDatas().size());
 		}
-		return taskNums.get( mainName )+1;
+		return taskNums.get( mainName );
 	}
 
 	public List<T> getDatas() {
