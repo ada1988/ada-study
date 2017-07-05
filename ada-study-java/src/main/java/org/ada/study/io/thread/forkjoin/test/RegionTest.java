@@ -24,17 +24,6 @@ public class RegionTest extends RegionBaseTask<String>{
 	private static final long	serialVersionUID	= 1L;
 
 	/**
-	 * 
-	 * @param datas 分区前的所有数据
-	 * @param name 主任务名称
-	 * @param regionLength 分区中数据大小
-	 */
-	public RegionTest(List<String> datas, String name,Integer regionLength) {
-		super( datas, name ,new SubTaskWork(),regionLength);
-	}
-	
-	
-	/**
 	 * 子任务，具体作业 
 	 */
 	static class SubTaskWork implements IRegionWork<String>{
@@ -67,8 +56,9 @@ public class RegionTest extends RegionBaseTask<String>{
 				for (int i = 0; i < 10; i++) {
 					funds.add( "main-1-fund-" + i );
 				}
-				
-				Integer count = new ForkJoinPool().invoke(new Region2Test(funds,"thread-main-1",30));
+				Region2Test test2 = new Region2Test();
+				test2.init( funds,"thread-main-1",new SubTaskWork(),30 );
+				Integer count = new ForkJoinPool().invoke(test2);
 				System.out.println("开启任务个数："+count);
 			}
 		} ).start();
@@ -81,7 +71,9 @@ public class RegionTest extends RegionBaseTask<String>{
 				for (int i = 0; i < 20; i++) {
 					funds2.add( "main-2-fund-" + i );
 				}
-				Integer count = new ForkJoinPool().invoke(new RegionTest(funds2,"thread-main-2",80));
+				Region2Test test2 = new Region2Test();
+				test2.init( funds2,"thread-main-2",new SubTaskWork(),30 );
+				Integer count = new ForkJoinPool().invoke(test2);
 				System.out.println("开启任务个数："+count);
 			}
 		} ).start();

@@ -22,17 +22,6 @@ import org.ada.study.io.thread.forkjoin.base.RegionBaseTask;
 public class Region2Test extends RegionBaseTask<String>{
 	
 	private static final long	serialVersionUID	= 1L;
-
-	/**
-	 * 
-	 * @param datas 分区前的所有数据
-	 * @param name 主任务名称
-	 * @param regionLength 分区中数据大小
-	 */
-	public Region2Test(List<String> datas, String name,Integer regionLength) {
-		super( datas, name ,new SubTaskWork(),regionLength);
-	}
-	
 	
 	/**
 	 * 子任务，具体作业 
@@ -63,15 +52,21 @@ public class Region2Test extends RegionBaseTask<String>{
 		for (int i = 0; i < 10; i++) {
 			funds.add( "main-1-fund-" + i );
 		}
+		Region2Test task = new Region2Test();
+		task.init( funds,"thread-main-1",new SubTaskWork(),3 );
 		
-		Integer count = new ForkJoinPool().invoke(new Region2Test(funds,"thread-main-1",400));
+		Integer count = new ForkJoinPool().invoke(task);
 		System.out.println("开启任务个数："+count);
 		
 		List<String> funds2 = new ArrayList<String>();
 		for (int i = 0; i < 10; i++) {
 			funds2.add( "main-2-fund-" + i );
 		}
-		count = new ForkJoinPool().invoke(new RegionTest(funds2,"thread-main-2",20));
+		
+		RegionTest task2 = new RegionTest();
+		task.init( funds2,"thread-main-2",new SubTaskWork(),3 );
+		
+		count = new ForkJoinPool().invoke(task2);
 		System.out.println("开启任务个数："+count);
 	}
 
