@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RecursiveTask;
 
 
@@ -22,7 +23,7 @@ import java.util.concurrent.RecursiveTask;
 public class RegionBaseTask<T> extends RecursiveTask<Integer> {
 	private static final long			serialVersionUID	= 1L;
 	// private static int taskNum = 0;//由于子任务的序号 ，不支持多线程同时调用,改为map存储
-	private static Map<String, Integer>	taskNums			= new HashMap<String, Integer>();
+	private static Map<String, Integer>	taskNums			= new ConcurrentHashMap<String, Integer>();//存在并发访问的问题,改为ConcurrentHashMap
 	private int							regionLength		= 100;								// 区域大小
 	private String						mainName;												// 任务名称
 	private String						subName;												// 任务名称
