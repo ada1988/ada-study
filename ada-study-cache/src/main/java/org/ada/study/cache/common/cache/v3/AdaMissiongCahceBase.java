@@ -15,6 +15,10 @@ import redis.clients.jedis.Jedis;
  *
  * Description: 缓存丢失，回源方案 <br>
  * 
+ * 缓存更新方案：canal监听DB变化，通过RabbitMQ，异步通知应用更新缓存。
+ * 
+ * 本案例待完善，仅提供思路：未提取堆内、分布式缓存容器，如提取出来，可统一管理；并暴露更新缓存接口，可实现基于消息的动态同步数据。
+ * 					 更新缓存时，未加锁等问题。
  * @author: CZD <br>
  * @version: 1.0 <br>
  * @Createtime: 2017年7月16日 <br>
@@ -62,7 +66,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		}
 	};
 
-	// 本地丢失缓存回源方案
+	// 本地缓存方案
 	private IQueryCache<Result, Param>	localQueryCache			= new IQueryCache<Result, Param>() {
 		
 		@Override
@@ -73,7 +77,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 			return result;
 		}
 	};
-	// 分布式丢失缓存回源方案
+	// 分布式缓存方案
 	private IQueryCache<Result, Param>	distributedQueryCache	= new IQueryCache<Result, Param>() {
 		
 		public Result queryData(Param param) {

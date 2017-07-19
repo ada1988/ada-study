@@ -21,7 +21,11 @@ public class TestV3 {
 		QueryFund fundCache = new QueryFund();
 		
 		FundParam param = new FundParam();
-		
+		/**
+		 * 首先：从堆内缓存中获取数据。
+		 * 其次：从分布式环境，获取数据，并更新堆内缓存。
+		 * 最后：从DB获取数据，并更新分布式、堆内缓存。
+		 */
 		FundEntity fund = fundCache.cacheData( param );
 		
 		System.out.println(fund.toString());
