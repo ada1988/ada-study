@@ -9,6 +9,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 /**
  * Filename: AdaMissiongCahceBase.java <br>
@@ -31,12 +32,13 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	 * 可以为以下几种方案提供默认实现，以及set方法，供外部实现
 	 */
 	private Map<String,Result> localContainer = new ConcurrentHashMap<String,Result>();
-	private Jedis jedis=SingletonJedisPool.getJedisPool().getResource();//未考虑关闭连接
+	private JedisPool pool = SingletonJedisPool.getJedisPool();//未考虑关闭连接
 	private RedisSerializer<Object> redisSerializer=new JdkSerializationRedisSerializer();
 	// 本地更新方案
 	private ICacheUpdate<Result>		localUpdate				= new ICacheUpdate<Result>() {
 		@Override
 		public Integer updateCache(Result result) {
+			System.out.println("本地缓存更新："+result.keyString()+"="+result.toString());
 			localContainer.putIfAbsent( result.keyString(), result );
 			return 1;
 		}
@@ -47,8 +49,10 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		private RedisSerializer<Object> redisSerializer=new JdkSerializationRedisSerializer();
 		@Override
 		public Integer updateCache(Result result) {
+			Jedis jedis=pool.getResource();
 			byte[] key = result.keyString().getBytes();
 			try {
+				System.out.println("分布式缓存更新："+result.keyString()+"="+result.toString());
 				byte[] value = redisSerializer.serialize( result );
 				if(value!=null){
 					jedis.set( key, value );
@@ -60,7 +64,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 				e.printStackTrace();
 			}finally{
 				if(jedis.isConnected())
-					jedis.close();
+					pool.returnResource( jedis );
 			}
 			return 0;
 		}
@@ -72,8 +76,10 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		@Override
 		public Result queryData(Param param) {
 			Result result = null;
-			if(localContainer.containsKey( param.keyString() ))
+			if(localContainer.containsKey( param.keyString() )){
 					result = localContainer.get( param.keyString());
+					System.out.println( "本地缓存数据成功：" + result.toString() );
+			}
 			return result;
 		}
 	};
@@ -81,6 +87,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	private IQueryCache<Result, Param>	distributedQueryCache	= new IQueryCache<Result, Param>() {
 		
 		public Result queryData(Param param) {
+			Jedis jedis=pool.getResource();
 			Result result = null;
 			try {
 				byte[] bys = jedis.get( param.keyString().getBytes() );
@@ -90,7 +97,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 				e.printStackTrace();
 			}finally{
 				if(jedis.isConnected())
-					jedis.close();
+					pool.returnResource( jedis );
 			}
 			return result;
 		}
@@ -105,9 +112,9 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	 * @Createtime: 2017年7月16日
 	 */
 	private Result localMissingCache(Param param) {
-		Result result = localQueryCache.queryData( param );
-		System.out.println( "获取分布式缓存成功：" + result.toString() );
+		Result result = distributedQueryCache.queryData( param );
 		if (result != null) {
+			System.out.println( "获取分布式缓存成功：" + result.toString() );
 			int count = localUpdate.updateCache( result );
 			System.out.println( "更新本地缓存成功：" + count );
 		}
@@ -123,9 +130,10 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	 * @Createtime: 2017年7月16日
 	 */
 	private Result distributedMissingCache(Param param) {
-		Result result = distributedQueryCache.queryData( param );
-		System.out.println( "获取分布式缓存成功：" + result.toString() );
+		Result result = this.queryDbData( param );
+		
 		if (null != result) {
+			System.out.println( "获取DB数据成功：" + result.toString() );
 			int count = distributedUpdate.updateCache( result );
 			System.out.println( "更新分布式缓存成功：" + count );
 			count = localUpdate.updateCache( result );
@@ -133,7 +141,6 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		}
 		return result;
 	}
-
 	/**
 	 * 获取缓存数据
 	 * 
@@ -147,7 +154,7 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		if (null == result)
 			result = localMissingCache( param );
 		if (null == result) {
-			result = distributedQueryCache.queryData( param );
+			result = queryDbData( param );
 			result = distributedMissingCache( param );
 		}
 		return result;

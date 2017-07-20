@@ -15,6 +15,7 @@ import org.ada.study.cache.common.cache.v3.IBaseKey;
  */
 
 public class FundParam implements IBaseKey{
+	
 	private String fundId;
 	@Override
 	public String keyString() {

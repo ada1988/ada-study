@@ -26,7 +26,7 @@ public class SingletonJedisPool {
 
 	private int port=6379;
 
-	private String host="127.0.0.1";
+	private String host="192.168.4.88";
 
 	private int maxTotal = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL;
 
