@@ -22,7 +22,7 @@ public class FundParam implements IBaseKey{
 		return this.fundId;
 	}
 	public String getFundId() {
-		return this.getFundId();
+		return this.fundId;
 	}
 	public void setFundId(String fundId) {
 		this.fundId = fundId;

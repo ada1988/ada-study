@@ -124,12 +124,13 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	/**
 	 * 分布式缓存数据丢失，回源方案DB，同时更新分布式、本地缓存
 	 * 
+	 * 监听消息，更新缓存
 	 * @param param
 	 * @return
 	 * @author: CZD
 	 * @Createtime: 2017年7月16日
 	 */
-	private Result distributedMissingCache(Param param) {
+	public Result distributedMissingCache(Param param) {
 		Result result = this.queryDbData( param );
 		
 		if (null != result) {
@@ -154,7 +155,6 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 		if (null == result)
 			result = localMissingCache( param );
 		if (null == result) {
-			result = queryDbData( param );
 			result = distributedMissingCache( param );
 		}
 		return result;
@@ -169,4 +169,5 @@ public abstract class AdaMissiongCahceBase<Result extends IBaseKey, Param extend
 	 * @Createtime: 2017年7月16日
 	 */
 	public abstract Result queryDbData(Param param);
+	
 }

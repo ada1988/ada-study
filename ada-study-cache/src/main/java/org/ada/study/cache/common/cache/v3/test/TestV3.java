@@ -33,10 +33,20 @@ public class TestV3 {
 		System.out.println("==================再次调用==================");
 		fund = fundCache.cacheData( param );
 		System.out.println("结果："+fund.toString());
-		
-		
-		System.out.println("==================再次调用==================");
+		System.out.println("==================监听消息...基金变化==================");
+		String key = "001";
+		FundEntity fundTemp = QueryFund.db.get( key );
+		fundTemp.setFundName( "name-002-modify" );
+		param.setFundId( key );
+		fundCache.distributedMissingCache( param );
+		System.out.println("==================首次调用==================");
 		fund = fundCache.cacheData( param );
 		System.out.println("结果："+fund.toString());
+		
+		System.out.println("==================再次次调用==================");
+		fund = fundCache.cacheData( param );
+		System.out.println("结果："+fund.toString());
+		
+		
 	}
 }

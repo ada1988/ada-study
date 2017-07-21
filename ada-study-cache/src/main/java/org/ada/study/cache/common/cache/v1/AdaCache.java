@@ -28,6 +28,7 @@ public class AdaCache {
 
 	private final static boolean is_log = false;
 
+	//该缓存，由于JVM垃圾回收，偶尔会为空，可以改为concurrentHashMap
 	private static  Map<String, EntityCache> cache = new WeakHashMap<String, EntityCache>(2000);
 	
 	private AdaCache(){}
