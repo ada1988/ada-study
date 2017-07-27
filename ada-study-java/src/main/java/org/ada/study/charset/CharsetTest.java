@@ -1,4 +1,4 @@
-package org.ada.study.io.charset;
+package org.ada.study.charset;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
