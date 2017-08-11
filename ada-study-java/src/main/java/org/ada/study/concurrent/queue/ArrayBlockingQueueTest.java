@@ -9,7 +9,7 @@ import java.util.Random;
 /**  
  * Filename: ConcurrentLinkedQueueTest.java  <br>
  *
- * Description: 高并发，无锁\链表队列  <br>
+ * Description:   <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 
@@ -18,7 +18,7 @@ import java.util.Random;
  *  
  */
 
-public class ConcurrentLinkedQueueTest<T>{
+public class ArrayBlockingQueueTest<T>{
 	private Object full=new Object();
 	private Object empty=new Object();
 	
@@ -74,7 +74,7 @@ public class ConcurrentLinkedQueueTest<T>{
 	}
 	
 	public static void main(String[] args) {
-		ConcurrentLinkedQueueTest<String> test = new ConcurrentLinkedQueueTest<String>();
+		ArrayBlockingQueueTest<String> test = new ArrayBlockingQueueTest<String>();
 		new Thread(){
 			public void run(){
 				for(int i=0;i<38;i++){
