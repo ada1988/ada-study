@@ -20,7 +20,6 @@
 		</encoder>
 	</appender>
 	<root level="info">
-		<!-- <appender-ref ref="rollingFileAppender"/> -->
 		<appender-ref ref="STDOUT" />
 	</root>
 	<!-- <springProfile name="test,pro">

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.ada.study.cache.common.constant.AdaCacheConstant;
+import org.ada.study.cache.common.constant.ProFileContants;
 import org.ada.study.cache.spring.AdaKeyGenerator;
 import org.ada.study.cache.spring.MapDbSpringCache;
 import org.ada.study.cache.spring.MapDbSpringCacheMannger;
@@ -14,11 +15,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 /**
- * Filename: AdaCacheConfig.java <br>
+ * Filename: AdaMapDbCacheConfig.java <br>
  *
- * Description: 自定义缓存配置<br>
+ * Description: 自定义缓存配置MapDb<br>
  * 
  * @author: CZD <br>
  * @version: 1.0 <br>
@@ -27,8 +29,9 @@ import org.springframework.context.annotation.Configuration;
  * 
  */
 @Configuration
+@Profile(ProFileContants.CACHE_MAP_DB)
 @EnableCaching(proxyTargetClass = true) 
-public class AdaCacheConfig extends CachingConfigurerSupport{
+public class AdaMapDbCacheConfig extends CachingConfigurerSupport{
 	/**
 	 * spring支持 站内缓存
 	 * @return

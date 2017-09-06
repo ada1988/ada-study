@@ -21,27 +21,29 @@ import java.util.concurrent.Executors;
 
 public class CountDownLatchTest implements Runnable{
 	static final CountDownLatch end = new CountDownLatch( 10 );
-	
 	static final CountDownLatchTest d = new CountDownLatchTest();
-	
 	public void run(){
 		try {
 			Thread.sleep( new Random().nextInt(10)*1000 );
-			System.out.println("检查中");
-			end.countDown();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}finally{
+				end.countDown();
+				System.out.println("子任务=执行中...."+end.getCount());
 		}
 	}
 	
 	public static void main(String[] args) throws InterruptedException {
 		ExecutorService exec = Executors.newFixedThreadPool( 10 );
+		
 		for(int i=0;i<10;i++)
+		{
 			exec.submit( d );
-		//等待检查   
-		end.wait();//等待countdownLatch中的数值变为0
+		}
+			//等待检查   
+			end.await();//等待countdownLatch中的数值变为0
 		//统一执行
-		System.out.println("执行");
+		System.out.println("主程序=执行中....");
 		exec.shutdown();//关闭线程池
 	}
 }

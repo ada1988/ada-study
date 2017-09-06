@@ -1,4 +1,7 @@
 package org.ada.study.io.thread.lock;
+
+import java.util.concurrent.CyclicBarrier;
+
 /**  
  * Filename: CyclicBarrierTest.java  <br>
  *
@@ -13,6 +16,14 @@ package org.ada.study.io.thread.lock;
  *  
  */
 
-public class CyclicBarrierTest {
+public class CyclicBarrierTest implements Runnable{
+	static final CyclicBarrier cyclicBarrier = new CyclicBarrier( 2 );
 
+	@Override
+	public void run() {
+		
+	}
+	
+	
+	
 }

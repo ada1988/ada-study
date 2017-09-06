@@ -33,7 +33,7 @@ public class AdaCache {
 	
 	private AdaCache(){}
 
-	private static long sleep_time = 1000*5;//毫秒
+	private static long sleep_time = 1000*5;//缓存时间毫秒
 
 	private static long max_size = 100*5;//千为单位，容器最大值5千个对象
 	
