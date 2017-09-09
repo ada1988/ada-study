@@ -15,13 +15,14 @@ import org.ada.study.cache.common.cache.v3.IBaseKey;
  */
 
 public class FundParam implements IBaseKey{
+	
 	private String fundId;
 	@Override
 	public String keyString() {
 		return this.fundId;
 	}
 	public String getFundId() {
-		return this.getFundId();
+		return this.fundId;
 	}
 	public void setFundId(String fundId) {
 		this.fundId = fundId;

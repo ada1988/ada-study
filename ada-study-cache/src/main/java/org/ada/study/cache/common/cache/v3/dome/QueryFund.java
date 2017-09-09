@@ -1,5 +1,8 @@
 package org.ada.study.cache.common.cache.v3.dome;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.ada.study.cache.common.cache.v3.AdaMissiongCahceBase;
 
 /**  
@@ -15,14 +18,21 @@ import org.ada.study.cache.common.cache.v3.AdaMissiongCahceBase;
  */
 
 public class QueryFund extends AdaMissiongCahceBase<FundEntity, FundParam>{
-
+	//故意暴露非线程安全集合
+	public static Map<String,FundEntity> db = new ConcurrentHashMap<String, FundEntity>();
+	{
+		FundEntity fund = null;
+		for(int i=0;i<9;i++){
+			fund = new FundEntity();
+			fund.setId( "00"+i );
+			fund.setFundCode( "code-00"+i );
+			fund.setFundName( "name-00"+i );
+			db.put( fund.keyString(), fund );
+		}
+	}
 	@Override
 	public FundEntity queryDbData(FundParam param) {
-		FundEntity fund = new FundEntity();
-		fund.setId( "001" );
-		fund.setFundCode( "code-001" );
-		fund.setFundName( "name-001" );
-		return fund;
+		return db.get( param.getFundId() );
 	}
 
 }

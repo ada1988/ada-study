@@ -21,13 +21,32 @@ public class TestV3 {
 		QueryFund fundCache = new QueryFund();
 		
 		FundParam param = new FundParam();
+		param.setFundId( "001" );
 		/**
 		 * 首先：从堆内缓存中获取数据。
 		 * 其次：从分布式环境，获取数据，并更新堆内缓存。
 		 * 最后：从DB获取数据，并更新分布式、堆内缓存。
 		 */
+		System.out.println("==================首次调用==================");
 		FundEntity fund = fundCache.cacheData( param );
+		System.out.println("结果："+fund.toString());
+		System.out.println("==================再次调用==================");
+		fund = fundCache.cacheData( param );
+		System.out.println("结果："+fund.toString());
+		System.out.println("==================监听消息...基金变化==================");
+		String key = "001";
+		FundEntity fundTemp = QueryFund.db.get( key );
+		fundTemp.setFundName( "name-002-modify" );
+		param.setFundId( key );
+		fundCache.distributedMissingCache( param );
+		System.out.println("==================首次调用==================");
+		fund = fundCache.cacheData( param );
+		System.out.println("结果："+fund.toString());
 		
-		System.out.println(fund.toString());
+		System.out.println("==================再次次调用==================");
+		fund = fundCache.cacheData( param );
+		System.out.println("结果："+fund.toString());
+		
+		
 	}
 }
