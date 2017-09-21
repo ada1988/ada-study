@@ -21,6 +21,7 @@
     <module>ada-study-java</module>
     <module>ada-study-cache</module>
     <module>ada-study-database-change</module>
+    <module>ada-study-tools</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
