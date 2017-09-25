@@ -22,6 +22,7 @@
     <module>ada-study-cache</module>
     <module>ada-study-database-change</module>
     <module>ada-study-tools</module>
+    <module>ada-study-netty</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
