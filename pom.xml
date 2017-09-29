@@ -23,6 +23,8 @@
     <module>ada-study-database-change</module>
     <module>ada-study-tools</module>
     <module>ada-study-netty</module>
+    <module>ada-study-akka</module>
+    <module>ada-study-mongo</module>
   </modules>
   <dependencyManagement>
 		<dependencies>

@@ -27,6 +27,7 @@ public class Application {
 		ConfigurableApplicationContext context = SpringApplication.run(Application.class, args );
 		context.registerShutdownHook();
 		context.start();
+		
 		while (true) {
 			try {
 				Thread.currentThread();

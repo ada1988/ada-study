@@ -31,7 +31,7 @@ public class ConditionTest implements Runnable{
 	
 	public void run(){
 		try{
-			System.out.println("获取锁");
+			System.out.println("son获取锁"+Thread.currentThread().getId());
 			lock.lock();
 			condition.wait();//线程等待，释放lock锁
 			System.out.println("Thread is going on");
@@ -47,6 +47,7 @@ public class ConditionTest implements Runnable{
 		Thread t1 = new Thread(test);
 		t1.start();
 		Thread.currentThread().sleep( 5000 );
+		System.out.println("main获取锁"+Thread.currentThread().getId());
 		lock.lock();
 		condition.signal();
 		lock.unlock();//必须释放，signal仅唤醒线程，但 不释放锁。
