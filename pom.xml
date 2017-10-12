@@ -25,6 +25,9 @@
     <module>ada-study-netty</module>
     <module>ada-study-akka</module>
     <module>ada-study-mongo</module>
+    <module>ada-study-elastic-job</module>
+    <module>ada-study-active-jdbc</module>
+    <module>ada-study-servlet</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
