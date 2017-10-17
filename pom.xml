@@ -28,6 +28,7 @@
     <module>ada-study-elastic-job</module>
     <module>ada-study-active-jdbc</module>
     <module>ada-study-servlet</module>
+    <module>ada-study-zookeeper</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
