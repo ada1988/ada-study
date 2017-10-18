@@ -29,6 +29,8 @@
     <module>ada-study-active-jdbc</module>
     <module>ada-study-servlet</module>
     <module>ada-study-zookeeper</module>
+    <module>ada-study-rpc-frame</module>
+    <module>ada-study-zookeeper</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
