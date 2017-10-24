@@ -31,6 +31,7 @@
     <module>ada-study-zookeeper</module>
     <module>ada-study-rpc-frame</module>
     <module>ada-study-zookeeper</module>
+    <module>ada-study-jstorm-kafka</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
