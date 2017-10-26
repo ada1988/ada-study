@@ -32,30 +32,36 @@
 			provided是没有传递性的，也就是说，如果你依赖的某个jar包，它的某个jar的范围是provided，那么该jar不会在你的工程中依靠jar依赖传递加入到你的工程中。 -->
 			<scope>provided</scope> 
 		</dependency> 
-		
+		 
+		<!-- Using storm-kafka with different versions of Kafka
+			Storm-kafka's Kafka dependency is defined as provided scope in maven, meaning it will not be pulled in as a transitive dependency. This allows you to use a version of Kafka dependency compatible with your kafka cluster.
+
+			When building a project with storm-kafka, you must explicitly add the Kafka dependency. For example, to use Kafka 0.8.1.1 built against Scala 2.10, you would use the following dependency in your pom.xml:
+		 -->
 		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
-			<version>0.11.0.1</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.apache.zookeeper</groupId>
-					<artifactId>zookeeper</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>  
-		            <groupId>log4j</groupId>  
-		            <artifactId>log4j</artifactId>  
-	          	</exclusion>
-			</exclusions>
-		</dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>0.8.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 		<dependency>
 		    <groupId>org.apache.storm</groupId>
 		    <artifactId>storm-kafka</artifactId>
-		    <version>1.1.1</version>
+		    <version>1.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.31</version>
 		</dependency>
 	</dependencies>
 	<build>
