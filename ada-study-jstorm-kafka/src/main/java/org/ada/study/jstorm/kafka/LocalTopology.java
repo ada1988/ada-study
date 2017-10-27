@@ -22,7 +22,7 @@ import org.apache.storm.topology.TopologyBuilder;
  * 
  * bin/storm jar
  * extlib/ada-study-jstorm-kafka-0.0.1-SNAPSHOT-jar-with-dependencies.jar
- * org.ada.study.jstorm.kafka.TopologyTest
+ * org.ada.study.jstorm.kafka.LocalTopology
  *
  */
 public class LocalTopology {
@@ -86,6 +86,9 @@ public class LocalTopology {
 		builder.setSpout( "kafka-spout-id", test.createKafkaSpout() );// 处理kafkaSpout中的数据，存放到队列kafka-spout-id
 		builder.setBolt( "pattern-url-bolt-id", new UrlFilterBolt(new String[]{"https://www.miduo.com/product/list_1/5.htm"}) ).shuffleGrouping( "kafka-spout-id" );// 处理器SenqueceBolt,读取kafka-spout-id队列中的元数据，发送到队列pattern-url-bolt-id
 
+		/**
+		 * 存储到kafka
+		 */
 		KafkaBolt<String, String> kafkaBolt = new KafkaBolt<String, String>();
 		kafkaBolt.withProducerProperties( test.kafkaProviderProperties() ).withTopicSelector( new DefaultTopicSelector( toTopicName ) );
 		builder.setBolt( "kafkabolt", kafkaBolt ).shuffleGrouping( "pattern-url-bolt-id" );// 处理器KafkaBolt,读取pattern-url-bolt-id队列中的元数据，发送到kafka
