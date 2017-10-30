@@ -1,4 +1,4 @@
-package org.ada.study.jstorm.kafka.msg;
+package org.ada.study.storm.mysql.bolt;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -30,17 +30,17 @@ import org.slf4j.LoggerFactory;
  * 
  */
 
-public class UrlFilterBolt extends BaseRichBolt {
+public class ProductUrlFilterBolt extends BaseRichBolt {
 	/**
 	 * 序列号
 	 */
 	private static final long	serialVersionUID	= 1L;
 
-	private static final Logger	LOGGER				= LoggerFactory.getLogger( UrlFilterBolt.class );
+	private static final Logger	LOGGER				= LoggerFactory.getLogger( ProductUrlFilterBolt.class );
 
 	private String[] patterns = null;
 	private OutputCollector		collector			= null;
-	public UrlFilterBolt(String[] patterns ){
+	public ProductUrlFilterBolt(String[] patterns ){
 		this.patterns = patterns;
 	}
 	public void declareOutputFields(OutputFieldsDeclarer arg0) {
@@ -68,7 +68,7 @@ public class UrlFilterBolt extends BaseRichBolt {
 					collector.emit( new Values( input.getValue( 0 ) ) );
 				}
 			}
-			LOGGER.error("discard--------------->UrlFilterBolt过滤器，未通过该条数据:{}",sentence);
+			LOGGER.info("discard--------------->UrlFilterBolt过滤器，未通过该条数据:{}",sentence);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

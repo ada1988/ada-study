@@ -1,4 +1,4 @@
-package org.ada.study.storm.mysql.handler;
+package org.ada.study.storm.mysql.cover;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package org.ada.study.storm.mysql.handler;
+package org.ada.study.storm.mysql.cover;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class SessionIdCovert implements IFieldValueCovert{
 	@Override
 	public String valueCover(String original) {
 		if(null == original || "".equals( original ))
-			return "";
+			return "-";
 		try {
 			String[] keyValues = original.split( ";" );
 			for(String keyValue:keyValues){

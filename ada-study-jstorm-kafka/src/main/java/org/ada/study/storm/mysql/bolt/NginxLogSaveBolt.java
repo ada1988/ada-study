@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ada.study.storm.mysql.em.LogFieldRalationEM;
-import org.ada.study.storm.mysql.handler.DateTimeCover;
-import org.ada.study.storm.mysql.handler.IFieldValueCovert;
-import org.ada.study.storm.mysql.handler.SessionIdCovert;
-import org.ada.study.storm.mysql.handler.StatusCover;
+import org.ada.study.storm.mysql.cover.DateTimeCover;
+import org.ada.study.storm.mysql.cover.IFieldValueCovert;
+import org.ada.study.storm.mysql.cover.SessionIdCovert;
+import org.ada.study.storm.mysql.cover.StatusCover;
+import org.ada.study.storm.mysql.em.LogFieldRalationFlowEM;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -47,19 +47,19 @@ public class NginxLogSaveBolt extends BaseRichBolt {
 
 	public String[] fields = null;
 	//nginx 日志字段对应的处理类
-	public Map<LogFieldRalationEM,IFieldValueCovert> relations = new HashMap<LogFieldRalationEM, IFieldValueCovert>();
+	public Map<LogFieldRalationFlowEM,IFieldValueCovert> relations = new HashMap<LogFieldRalationFlowEM, IFieldValueCovert>();
 	{
 		
 		//字段处理器
-		relations.put( LogFieldRalationEM.LOG_http_cookie_session_id1, new SessionIdCovert( "_cus_sessionid" ) );
-		relations.put( LogFieldRalationEM.LOG_http_cookie_session_id2, new SessionIdCovert( "MDSESSION" ) );
-		relations.put( LogFieldRalationEM.LOG_time_local, new DateTimeCover() );
-		relations.put( LogFieldRalationEM.LOG_status, new StatusCover() );
+		relations.put( LogFieldRalationFlowEM.LOG_http_cookie_session_id1, new SessionIdCovert( "_cus_sessionid" ) );
+		relations.put( LogFieldRalationFlowEM.LOG_http_cookie_session_id2, new SessionIdCovert( "MDSESSION" ) );
+		relations.put( LogFieldRalationFlowEM.LOG_time_local, new DateTimeCover() );
+		relations.put( LogFieldRalationFlowEM.LOG_status, new StatusCover() );
 		
 		
-		fields = new String[LogFieldRalationEM.values().length];
+		fields = new String[LogFieldRalationFlowEM.values().length];
 		int num = 0;
-		for(LogFieldRalationEM field:LogFieldRalationEM.values()){
+		for(LogFieldRalationFlowEM field:LogFieldRalationFlowEM.values()){
 			//字段列
 			fields[num] = field.getFieldName();
 			num = num+1;
@@ -91,14 +91,14 @@ public class NginxLogSaveBolt extends BaseRichBolt {
 			}
 			String value = null;
 			IFieldValueCovert handler = null;
-			//获取所用属性值
-			for(LogFieldRalationEM relation:LogFieldRalationEM.values()){
+			//获取所有属性值
+			for(LogFieldRalationFlowEM relation:LogFieldRalationFlowEM.values()){
 				value = json.getString( "field-"+relation.getLogIndex() );
 				handler = relations.get( relation );
 				if(null!=handler){
 					value = handler.valueCover( value );
 				}
-				results.add( value );
+				results.add( value.trim() );
 			}
 			// 发射的时候直接发消息，不需要发送原来的tuple
 			collector.emit( new Values( results.toArray() ) );
