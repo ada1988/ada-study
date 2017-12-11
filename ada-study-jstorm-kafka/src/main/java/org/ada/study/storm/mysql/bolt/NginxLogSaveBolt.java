@@ -26,7 +26,10 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * Filename: NginxLogSaveBolt.java <br>
  *
- * Description: <br>
+ * Description: 格式化nginx日志 <br>
+ * 
+ * 	数据结构
+ * 	ip---req_url---req_refer---req_time---post_params---session_id_v1---session_id_v2---status
  * 
  * @author: CZD <br>
  * @version: 1.0 <br>
@@ -58,11 +61,9 @@ public class NginxLogSaveBolt extends BaseRichBolt {
 		
 		
 		fields = new String[LogFieldRalationFlowEM.values().length];
-		int num = 0;
 		for(LogFieldRalationFlowEM field:LogFieldRalationFlowEM.values()){
 			//字段列
-			fields[num] = field.getFieldName();
-			num = num+1;
+			fields[field.getNextIndex()] = field.getFieldName();
 		}
 	}
 	@Override

@@ -28,11 +28,13 @@ import org.apache.storm.tuple.Tuple;
 
 @SuppressWarnings("rawtypes")
 public class ProductUrlHandler implements IUrlHandler<Tuple, List<Column>> {
+	
 
 	/**
 	 * 
 	 */
 	private static final long				serialVersionUID	= 1L;
+	public static final int defaultTimes = 3;
 	public Map<String, IFieldValueCovert>	paramCovers			= new HashMap<String, IFieldValueCovert>();
 	public ProductUrlHandler(String productType,String paramName){
 		/**
@@ -45,6 +47,8 @@ public class ProductUrlHandler implements IUrlHandler<Tuple, List<Column>> {
 				paramCovers.put( em.getFieldName(), new UserMobileUrlCover() );
 			if (em == ProductFiledsDbEM.product_type)
 				paramCovers.put( em.getFieldName(), new ProductTypeCover( productType ) );
+			if (em == ProductFiledsDbEM.residence_times)
+				paramCovers.put( em.getFieldName(), new ResidenceTime(  ) );
 		}
 	}
 
@@ -72,6 +76,20 @@ public class ProductUrlHandler implements IUrlHandler<Tuple, List<Column>> {
 			columns.add( new Column( em.getFieldName(), value, Types.VARCHAR ) );
 		}
 		return columns;
+	}
+	
+	static class ResidenceTime implements IFieldValueCovert{
+
+		/**
+		 * 
+		 */
+		private static final long	serialVersionUID	= 1L;
+
+		@Override
+		public String valueCover(String original) {
+			return ""+defaultTimes;
+		}
+		
 	}
 
 }

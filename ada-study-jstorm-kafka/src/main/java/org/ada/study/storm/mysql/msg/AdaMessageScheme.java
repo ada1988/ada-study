@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.ada.study.jstorm.kafka.LocalTopology;
-import org.ada.study.jstorm.kafka.msg.FormatMessageScheme;
 import org.apache.storm.spout.Scheme;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
@@ -20,7 +19,7 @@ import com.alibaba.fastjson.JSON;
 /**  
  * Filename: AdaMessageScheme.java  <br>
  *
- * Description:   <br>
+ * Description: 序列化nginx日志的数据  <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 

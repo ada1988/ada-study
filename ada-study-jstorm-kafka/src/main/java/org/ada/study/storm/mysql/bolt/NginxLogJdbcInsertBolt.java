@@ -17,13 +17,11 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**  
  * Filename: NginxLogJdbcInsertBolt.java  <br>
  *
- * Description:   <br>
+ * Description: 将nginx文件的日志，保存到tbl_nginx_log_all表中  <br>
  * 
  * @author: CZD <br> 
  * @version: 1.0 <br> 
@@ -75,7 +73,7 @@ public class NginxLogJdbcInsertBolt extends AbstractJdbcBolt{
 
     @Override
     public void execute(Tuple tuple) {
-    	List<String> nextFieldValues = new ArrayList<String>();
+    	List<String> nextFieldValues = new ArrayList<String>(LogFieldRalationFlowEM.values().length);
     	List<Column> columns = null;
         try {
             columns = jdbcMapper.getColumns(tuple);
@@ -89,14 +87,10 @@ public class NginxLogJdbcInsertBolt extends AbstractJdbcBolt{
             for(LogFieldRalationFlowEM field:LogFieldRalationFlowEM.values()){
             	nextFieldValues.add( tuple.getString( field.getNextIndex() ) );
             }
-           // this.collector.ack(tuple);
+            collector.emit( new Values(nextFieldValues.toArray()) );
         } catch (Exception e) {
         	e.printStackTrace();
-           /* this.collector.reportError(e);
-            this.collector.fail(tuple);*/
-        	//this.collector.ack(tuple);
         }finally {
-        	collector.emit( new Values(nextFieldValues.toArray()) );
 			// 所有数据，统统进行回复
 			collector.ack( tuple );
 		}
@@ -109,11 +103,9 @@ public class NginxLogJdbcInsertBolt extends AbstractJdbcBolt{
 	@Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
 		String[] fields = new String[LogFieldRalationFlowEM.values().length];
-		int num = 0;
 		for(LogFieldRalationFlowEM field:LogFieldRalationFlowEM.values()){
 			//字段列
-			fields[num] = field.getFieldName();
-			num = num+1;
+			fields[field.getNextIndex()] = field.getFieldName();
 		}
 		outputFieldsDeclarer.declare( new Fields(fields) );
     }

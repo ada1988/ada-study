@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.ada.study.storm.mysql.bolt.CountResidenceTimesBolt;
 import org.ada.study.storm.mysql.bolt.NginxLogJdbcInsertBolt;
 import org.ada.study.storm.mysql.bolt.NginxLogSaveBolt;
 import org.ada.study.storm.mysql.bolt.ProductJdbcInsertBolt;
@@ -131,7 +132,7 @@ public class KafkaToMysqlTopology {
 	 */
 	public JdbcMapper createProductMapper() {
 		List<Column> columnSchema = Lists.newArrayList( new Column( "product_type", Types.VARCHAR ), new Column( "product_id", Types.VARCHAR ),
-				new Column( "look_time", Types.VARCHAR ), new Column( "user_mobile", Types.VARCHAR ), new Column( "user_ip", Types.VARCHAR ) );
+				new Column( "look_time", Types.VARCHAR ), new Column( "user_mobile", Types.VARCHAR ), new Column( "user_ip", Types.VARCHAR ), new Column( "residence_times", Types.VARCHAR ) );
 		JdbcMapper jdbcMapper = new SimpleJdbcMapper( columnSchema );
 		return jdbcMapper;
 	}
@@ -152,8 +153,7 @@ public class KafkaToMysqlTopology {
 		// 创建mysql目标地址
 		ConnectionProvider connectionProvider = createMysqlConnectionProvider();
 		NginxLogJdbcInsertBolt nginxLogBolt = new NginxLogJdbcInsertBolt( connectionProvider, createNginxLogMapper() )
-				.withInsertQuery(
-						"insert into tbl_nginx_log_all (ip,req_url,req_refer,req_time,post_params,status,session_id_v1,session_id_v2) values (?,?,?,?,?,?,?,?)" )
+				.withInsertQuery("insert into tbl_nginx_log_all (ip,req_url,req_refer,req_time,post_params,status,session_id_v1,session_id_v2) values (?,?,?,?,?,?,?,?)" )
 				.withQueryTimeoutSecs( 30 );
 		builder.setBolt( "tbl-nginx-log", nginxLogBolt ).shuffleGrouping( "tbl-nginx-log-bolt" );
 		/**
@@ -162,7 +162,6 @@ public class KafkaToMysqlTopology {
 		List<UrlHandlerMapping> relationPatternHandlerMapping = new ArrayList<UrlHandlerMapping>();
 		relationPatternHandlerMapping.add( new UrlHandlerMapping( new String[] { "/public/account/login.do" }, new UserRelationUrlHandler() ) );
 		relationPatternHandlerMapping.add( new UrlHandlerMapping( new String[] { "/passport/app/toAppSign.do" }, new UserRelationUrlHandler() ) );
-
 		relationPatternHandlerMapping.add( new UrlHandlerMapping( new String[] { "/app/product/detail/1/v4_1.json", "/app/product/detail/1/v4.json",
 				"/ucenter/insure/partnerOrderUrl.json"// 保险产品地址
 				, "/app/product/detail/0/v4_1.json"// 投资产品地址
@@ -178,18 +177,37 @@ public class KafkaToMysqlTopology {
 		 * URL-Handler（请求地址-处理器）
 		 */
 		List<UrlHandlerMapping> productPatternHandlerMapping = new ArrayList<UrlHandlerMapping>();
-		productPatternHandlerMapping.add( new UrlHandlerMapping( new String[] { "/app/product/detail/1/v4_1.json", "/app/product/detail/1/v4.json",
-				"/ucenter/insure/partnerOrderUrl.json" }, new ProductUrlHandler( "1", "productId" ) ) );
-		productPatternHandlerMapping.add( new UrlHandlerMapping( new String[] { "/app/product/detail/0/v4_1.json" }, new ProductUrlHandler( "0",
-				"productId" ) ) );
-		productPatternHandlerMapping
-				.add( new UrlHandlerMapping( new String[] { "/product/fund/app/detailSlow.json" }, new ProductUrlHandler( "4", "fundid" ) ) );
+		productPatternHandlerMapping.add( new UrlHandlerMapping( 
+				new String[] { "/app/product/detail/1/v4_1.json", "/app/product/detail/1/v4.json",
+				"/ucenter/insure/partnerOrderUrl.json" }, 
+				new ProductUrlHandler( "1", "productId" ) ) );
+		productPatternHandlerMapping.add( new UrlHandlerMapping( 
+				new String[] { "/app/product/detail/0/v4_1.json" }, 
+				new ProductUrlHandler( "0",	"productId" ) ) );
+		productPatternHandlerMapping.add( new UrlHandlerMapping( 
+				new String[] { "/product/fund/app/detailSlow.json" }, 
+				new ProductUrlHandler( "4", "fundid" ) ) );
+		productPatternHandlerMapping.add( new UrlHandlerMapping( 
+				new String[] { "/app/product/detail/residenceTimes.json" }, 
+				null ) );
+		
+		
 		// 过滤产品url记录，存储tbl_user_relation关系
 		ProductJdbcInsertBolt productBolt = new ProductJdbcInsertBolt( connectionProvider, createProductMapper(), productPatternHandlerMapping )
-				.withInsertQuery( "insert into tbl_product_log_all (product_type,product_id,look_time,user_mobile,user_ip) values (?,?,?,?,?)" )
+				.withInsertQuery( "insert into tbl_product_log_all (product_type,product_id,look_time,user_mobile,user_ip,residence_times) values (?,?,?,?,?,?)" )
 				.withQueryTimeoutSecs( 30 );
 		builder.setBolt( "tbl_product_log", productBolt ).shuffleGrouping( "tbl_user_relation" );// 处理器SenqueceBolt,读取kafka-spout-id队列中的元数据，发送到队列url-filter-bolt
 
+		/**
+		 * 统计停留时间
+		 */
+		CountResidenceTimesBolt countResidenceTimesBolt = new CountResidenceTimesBolt( connectionProvider );
+		builder.setBolt( "countResidenceTimesBolt", countResidenceTimesBolt ).shuffleGrouping( "tbl_product_log" );// 处理器SenqueceBolt,读取kafka-spout-id队列中的元数据，发送到队列url-filter-bolt
+
+		
+		
+		
+		
 		clustor( builder );
 		 //local(builder);
 	}

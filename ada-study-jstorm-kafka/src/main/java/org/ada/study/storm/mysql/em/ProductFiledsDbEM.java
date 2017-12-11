@@ -22,7 +22,8 @@ public enum  ProductFiledsDbEM{
 	product_id(new int[]{3},"product_id","product_id"),
 	look_time(new int[]{2},"look_time","look_time"),
 	user_mobile(new int[]{4,5},"user_mobile","user_mobile"),
-	user_ip(new int[]{0},"user_ip","user_ip");
+	user_ip(new int[]{0},"user_ip","user_ip"),
+	residence_times(new int[]{0},"residence_times","residence_times");
 	private ProductFiledsDbEM(int[] preIndexs,String fieldName,String fieldDesc){
 		this.preIndexs = preIndexs;
 		this.fieldName = fieldName;

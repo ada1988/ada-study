@@ -20,7 +20,7 @@ public class ReadExcelTest {
 	static String basePath ="D:\\";
 	public static void readExcelDome(){
 		//读文件
-		File file = new File(basePath+"insure-commssion.xlsx");
+		File file = new File(basePath+"新建 Microsoft Excel 工作表.xlsx");
 		FileInputStream fileIo = null;
 		try {
 			fileIo = new FileInputStream(file);
@@ -31,7 +31,7 @@ public class ReadExcelTest {
 		ExcelXXXLineHander lineOption = new ExcelXXXLineHander();
 		ReadExcel<String> excelUtils = new ReadExcel<String>();
 		List<String> commssions = excelUtils.readExcel(fileIo, lineOption, 0);
-		Path path = Paths.get( "D://insure-commssion.txt" );
+		Path path = Paths.get( "D://insure-commssion222.txt" );
 		try {
 			Files.write( path, commssions, StandardOpenOption.CREATE );
 		} catch (IOException e) {

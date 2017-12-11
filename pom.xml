@@ -32,6 +32,11 @@
     <module>ada-study-rpc-frame</module>
     <module>ada-study-zookeeper</module>
     <module>ada-study-jstorm-kafka</module>
+    <module>ada-study-elasctic-search</module>
+    <module>ada-study-mahout</module>
+    <module>ada-study-ik</module>
+    <module>ada-study-webmagic</module>
+    <module>ada-study-flow</module>
   </modules>
   <dependencyManagement>
 		<dependencies>

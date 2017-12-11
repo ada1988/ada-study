@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 /**  
  * Filename: UserRelationJdbcInsertBolt.java  <br>
  *
- * Description:  处理:URL过滤以及存储用户关系 <br>
+ * Description: 处理:URL过滤以及存储用户关系 <br>
  * 
  * 过滤：产品URL、登录接口
  * 		登录接口处理：记录用户手机号与session_id、ip的关系，并存储到tbl_user_relation，丢弃处理的数据。
@@ -107,10 +107,8 @@ public class UserRelationJdbcInsertBolt extends AbstractJdbcBolt{
 							//保存到数据库
 							insertDb((List<Column>)handler.handler( tuple ));
 						}else{
-							 int num = 0;
 							 for(ProductFiledsFlowEM productEm:ProductFiledsFlowEM.values()){
-								 	nextTuple[num] = tuple.getString( productEm.getPreIndex() );
-								 	num=num+1;
+								 	nextTuple[productEm.getNextIndex()] = tuple.getString( productEm.getPreIndex() );
 					         }
 							// 发射的时候直接发消息，不需要发送原来的tuple
 							collector.emit( new Values( nextTuple ) );
@@ -158,11 +156,9 @@ public class UserRelationJdbcInsertBolt extends AbstractJdbcBolt{
 	@Override
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
 		String[] fields = new String[ProductFiledsFlowEM.values().length];
-		int num = 0;
 		for(ProductFiledsFlowEM field:ProductFiledsFlowEM.values()){
 			//字段列
-			fields[num] = field.getFieldName();
-			num = num+1;
+			fields[field.getNextIndex()] = field.getFieldName();
 		}
 		outputFieldsDeclarer.declare( new Fields(fields) );
     }

@@ -34,6 +34,5 @@ public class Test {
 	public static void main(String[] args) {
 		String[] fields = new String[]{"1","2","3"};
 		Test.fields(fields);
-		
 	}
 }
