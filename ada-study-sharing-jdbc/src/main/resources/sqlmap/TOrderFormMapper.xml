@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ada.study.sharing.jdbc.mapper.TOrderFormMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="org.ada.study.sharing.jdbc.model.TOrderForm">
+		<result column="order_no" property="orderNo" />
+		<result column="city_id" property="cityId" />
+		<result column="user_id" property="userId" />
+		<result column="create_time" property="createTime" />
+		<result column="user_address" property="userAddress" />
+		<result column="lon_and_lat" property="lonAndLat" />
+		<result column="multiple_payment" property="multiplePayment" />
+		<result column="balance_amount" property="balanceAmount" />
+		<result column="order_status" property="orderStatus" />
+		<result column="pay_status" property="payStatus" />
+		<result column="product_type" property="productType" />
+		<result column="product_sub_typte" property="productSubTypte" />
+		<result column="link_user" property="linkUser" />
+		<result column="link_phone" property="linkPhone" />
+		<result column="user_service_require" property="userServiceRequire" />
+		<result column="canel_time" property="canelTime" />
+		<result column="pay_time" property="payTime" />
+		<result column="end_time" property="endTime" />
+		<result column="order_amount" property="orderAmount" />
+		<result column="increment_amount" property="incrementAmount" />
+		<result column="total_amount" property="totalAmount" />
+		<result column="discount_amount" property="discountAmount" />
+		<result column="pay_amount" property="payAmount" />
+		<result column="actual_pay_amount" property="actualPayAmount" />
+		<result column="settlement_flag" property="settlementFlag" />
+		<result column="source_code" property="sourceCode" />
+		<result column="source_user_id" property="sourceUserId" />
+		<result column="dispatch_flag" property="dispatchFlag" />
+		<result column="order_flag" property="orderFlag" />
+		<result column="is_delete" property="isDelete" />
+		<result column="remark" property="remark" />
+		<result column="version" property="version" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+         order_no AS orderNo, city_id AS cityId, user_id AS userId, create_time AS createTime, user_address AS userAddress, lon_and_lat AS lonAndLat, multiple_payment AS multiplePayment, balance_amount AS balanceAmount, order_status AS orderStatus, pay_status AS payStatus, product_type AS productType, product_sub_typte AS productSubTypte, link_user AS linkUser, link_phone AS linkPhone, user_service_require AS userServiceRequire, canel_time AS canelTime, pay_time AS payTime, end_time AS endTime, order_amount AS orderAmount, increment_amount AS incrementAmount, total_amount AS totalAmount, discount_amount AS discountAmount, pay_amount AS payAmount, actual_pay_amount AS actualPayAmount, settlement_flag AS settlementFlag, source_code AS sourceCode, source_user_id AS sourceUserId, dispatch_flag AS dispatchFlag, order_flag AS orderFlag, is_delete AS isDelete, remark
+    </sql>
+
+	<select id="queryRelation" resultMap="BaseResultMap">
+	select o.order_no,d.version from t_order_form o left join tbl_order_detail d on d.order_no = o.order_no  
+	</select>
+		
+</mapper>

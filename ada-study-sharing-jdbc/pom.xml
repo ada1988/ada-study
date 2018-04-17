@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>ada-study</artifactId>
+		<groupId>ada-study</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<groupId>ada-study-sharing-jdbc</groupId>
+	<artifactId>ada-study-sharing-jdbc</artifactId>
+
+	<name>ada-study-sharing-jdbc</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<spring-boot-starter-velocity.version>1.4.7.RELEASE</spring-boot-starter-velocity.version>
+		<velocity-engine-core.version>2.0</velocity-engine-core.version>
+		<spring-boot.version>1.5.8.RELEASE</spring-boot.version>
+		<mybatis-spring.version>1.3.0</mybatis-spring.version>
+		<sharding-jdbc.version>2.0.3</sharding-jdbc.version>
+		<druid-spring-boot-starter.version>1.1.0</druid-spring-boot-starter.version>
+		<mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-velocity</artifactId>
+			<version>${spring-boot-starter-velocity.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-engine-core</artifactId>
+			<version>${velocity-engine-core.version}</version>
+		</dependency>
+	<dependency>
+	    <groupId>io.shardingjdbc</groupId>
+	    <artifactId>sharding-jdbc-core</artifactId>
+	    <version>${sharding-jdbc.version}</version>
+	</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid-spring-boot-starter.version}</version>
+		</dependency>
+	  <dependency>
+	      <groupId>com.baomidou</groupId>
+	      <artifactId>mybatis-plus</artifactId>
+	      <version>2.1.9</version>
+	  </dependency>
+	  		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatisplus-spring-boot-starter</artifactId>
+			<version>${mybatisplus-spring-boot-starter.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+	</dependencies>
+
+
+</project>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ada.study.sharing.jdbc.mapper.TblOrderDetailMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="org.ada.study.sharing.jdbc.model.TblOrderDetail">
+		<id column="id" property="id" />
+		<result column="order_no" property="orderNo" />
+		<result column="product_no" property="productNo" />
+		<result column="product_sku_no" property="productSkuNo" />
+		<result column="product_name" property="productName" />
+		<result column="city_id" property="cityId" />
+		<result column="subscribe_time" property="subscribeTime" />
+		<result column="product_num" property="productNum" />
+		<result column="product_unit" property="productUnit" />
+		<result column="price" property="price" />
+		<result column="increment_amount" property="incrementAmount" />
+		<result column="discount_amount" property="discountAmount" />
+		<result column="actual_pay_amount" property="actualPayAmount" />
+		<result column="order_status" property="orderStatus" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, order_no AS orderNo, product_no AS productNo, product_sku_no AS productSkuNo, product_name AS productName, city_id AS cityId, subscribe_time AS subscribeTime, product_num AS productNum, product_unit AS productUnit, price, increment_amount AS incrementAmount, discount_amount AS discountAmount, actual_pay_amount AS actualPayAmount, order_status AS orderStatus
+    </sql>
+
+</mapper>
