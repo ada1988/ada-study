@@ -37,6 +37,7 @@
     <module>ada-study-ik</module>
     <module>ada-study-webmagic</module>
     <module>ada-study-flow</module>
+    <module>ada-study-redisson</module>
   </modules>
   <dependencyManagement>
 		<dependencies>
