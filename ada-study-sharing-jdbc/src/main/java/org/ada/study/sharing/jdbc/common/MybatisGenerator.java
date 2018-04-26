@@ -31,9 +31,7 @@ public class MybatisGenerator {
 		String mapperPath = "mapper";
 		String xmlPath = "sqlmap";
 		String driverName = "com.mysql.jdbc.Driver";
-		/*String username = "exiangjia";
-		String password = "exj@muyu!123321";
-		String url = "jdbc:mysql://192.168.10.110:3306/exj_creater?characterEncoding=utf8";*/
+
 		String username = "root";
 		String password = "";
 		String url = "jdbc:mysql://localhost:3306/order_db?characterEncoding=utf8";
