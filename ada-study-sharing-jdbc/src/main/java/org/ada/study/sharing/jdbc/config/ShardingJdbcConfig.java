@@ -201,7 +201,7 @@ public class ShardingJdbcConfig {
 			shardingRuleConfig.setDefaultDataSourceName("ds_0");
 			shardingRuleConfig.getTableRuleConfigs().add(cfgOrderForm);
 			shardingRuleConfig.getTableRuleConfigs().add(cfgOrderDetail);
-
+			shardingRuleConfig.getBindingTableGroups().add("t_order_form, tbl_order_detail");//未绑定，会出现多条空数据
 			// 获取数据源对象
 			dataSource = ShardingDataSourceFactory.createDataSource(dataSourceMap, shardingRuleConfig,
 					new ConcurrentHashMap<>(), new Properties());
