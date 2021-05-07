@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.ada.jstorm</groupId>
+	<artifactId>ada-study-jstorm-kafka</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ada-study-jstorm-kafka</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		 <dependency>
+		    <groupId>ring-cors</groupId>
+		    <artifactId>ring-cors</artifactId>
+		     <version>0.1.7</version>
+		     <scope>provided</scope> 
+		</dependency> 
+		<dependency>
+			<groupId>org.apache.storm</groupId>
+			<artifactId>storm-core</artifactId>
+			<version>1.1.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>ring-cors</groupId>
+		    		<artifactId>ring-cors</artifactId>
+				</exclusion>
+			</exclusions>
+			<!-- 容器或JDK已提供范围，表示该依赖包已经由目标容器（如tomcat）和JDK提供，只在编译的classpath中加载和使用，打包的时候不会包含在目标包中。最常见的是j2ee规范相关的servlet-api和jsp-api等jar包，一般由servlet容器提供，无需在打包到war包中，如果不配置为provided，把这些包打包到工程war包中，在tomcat6以上版本会出现冲突无法正常运行程序（版本不符的情况）。 
+			provided是没有传递性的，也就是说，如果你依赖的某个jar包，它的某个jar的范围是provided，那么该jar不会在你的工程中依靠jar依赖传递加入到你的工程中。 -->
+			<scope>provided</scope> 
+		</dependency> 
+		 
+		<!-- Using storm-kafka with different versions of Kafka
+			Storm-kafka's Kafka dependency is defined as provided scope in maven, meaning it will not be pulled in as a transitive dependency. This allows you to use a version of Kafka dependency compatible with your kafka cluster.
+
+			When building a project with storm-kafka, you must explicitly add the Kafka dependency. For example, to use Kafka 0.8.1.1 built against Scala 2.10, you would use the following dependency in your pom.xml:
+		 -->
+		<dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.10</artifactId>
+            <version>0.8.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 集成kafka -->
+		<dependency>
+		    <groupId>org.apache.storm</groupId>
+		    <artifactId>storm-kafka</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
+		<!-- 集群mysql -->
+		<dependency>
+		    <groupId>org.apache.storm</groupId>
+		    <artifactId>storm-jdbc</artifactId>
+		    <version>1.0.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>mysql</groupId>
+		    <artifactId>mysql-connector-java</artifactId>
+		    <version>5.1.31</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.31</version>
+		</dependency>
+	</dependencies>
+	<build>
+	<finalName>miduo-product-look</finalName>
+     <plugins>
+       <plugin>
+         <artifactId>maven-assembly-plugin</artifactId>
+         <configuration>
+           <descriptorRefs>
+             <descriptorRef>jar-with-dependencies</descriptorRef>
+           </descriptorRefs>
+         </configuration>
+         <executions>
+           <execution>
+             <id>make-assembly</id> 
+             <phase>package</phase>
+             <goals>
+               <goal>single</goal>
+             </goals>
+           </execution>
+         </executions>
+       </plugin>
+     </plugins>
+   </build>
+</project>
