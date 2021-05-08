@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 解除钱包绑定的银行卡
  */
-public class TC020106ReqData extends ReqBase<TC020106ReqData>{
+public class TC020106ReqData extends ReqBase{
 	
 	private String accountNo;  //账户号码  N
 	

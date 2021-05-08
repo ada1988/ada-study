@@ -12,8 +12,6 @@ import java.util.Base64;
 
 import javax.crypto.Cipher;
 
-import sun.misc.BASE64Decoder;
-
 
 public class RSA {
     //生成秘钥对

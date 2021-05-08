@@ -47,5 +47,32 @@ if (tableMeta != null && columnInfo.length > tableMeta.getFileds().size())<br />
    }<br />
  
 
+2、ada-pay-parent （ 基于Feign框架，封装三方银行接口对接） 
+----------------------------------- 
+####  项目结构
+######	ada-pay-common  公共类封装（开启支付注解、泛型封装、feign动态地址、feign日志）
+######	ada-pay-pab	平安银行接口对接（实现IBasicsService接口处理前置、后置封装；基于接口文档创建请求实体、响应实体、接口实现）
+######	ada-pay-hbb	河北银行接口对接（实现IBasicsService接口处理前置、后置封装；基于接口文档创建请求实体、响应实体、接口实现）
+######	ada-pay-demo   使用案例（pom添加依赖;启动类开启@EnableAdaPay注解;注入实现的接口，调用父类实现的requestApi方法）
 
+###### 超简单的三方接口对接：<br />
+	前期仅需一人对接加密、解密等事项，其余繁杂的三方接口对接，可以交于初级工程师完成
+	前期实现仅需实现IBasicsService接口：
+		/**
+		 * 服务请求:前置处理。  如获取公钥、私有、数据加密等
+		 * @param <Req>
+		 * @param req
+		 * @return
+		 */
+		public <Req> Map<String,Object> beforeRequestHandler(Req req);
+	
+		/**
+		 * 服务请求:后置处理。如解密、转换返回实体等
+		 * @param <Resp>
+		 * @param resp
+		 * @param clazz
+		 * @return
+		 */
+		public <Resp> RespBase<Resp> afterRequestHandler(String result,Class<Resp> clazz);
+		
 

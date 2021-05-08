@@ -12,7 +12,7 @@ package com.ada.pay.bean;
  *  
  */
 
-public class ReqBase<T>{
+public class ReqBase{
 	private String merchantNo;//由E账户给签约商户分配
 	private String reqTime;//yyyymmddhhmmss
 	private String reqNo;//签约商户调用方生成唯一编号，推荐使用uuid去 掉-，用于超时情况查询使用，返回参数会直接返回
@@ -21,7 +21,6 @@ public class ReqBase<T>{
 	private String plaintext;//参数明文
 	private String data;//Aes加密后的数据
 	private String tradeCode;//子系统编号2 业务接口编号4
-	private T reqData;//请求实体
 	/**  
 	 * @Title:  getMerchantNo <BR>  
 	 * @Description: please write your description <BR>  
@@ -133,22 +132,6 @@ public class ReqBase<T>{
 	 */
 	public void setData(String data) {
 		this.data = data;
-	}
-	/**  
-	 * @Title:  getReqData <BR>  
-	 * @Description: please write your description <BR>  
-	 * @return: T <BR>  
-	 */
-	public T getReqData() {
-		return reqData;
-	}
-	/**  
-	 * @Title:  setReqData <BR>  
-	 * @Description: please write your description <BR>  
-	 * @return: T <BR>  
-	 */
-	public void setReqData(T reqData) {
-		this.reqData = reqData;
 	}
 	/**  
 	 * @Title:  getTradeCode <BR>  

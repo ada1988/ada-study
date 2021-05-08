@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 结算接口
  */
-public class TC020203ReqData extends ReqBase<TC020203ReqData>{
+public class TC020203ReqData extends ReqBase{
 	
 	private String refNo;    //平台订单No  Y
 

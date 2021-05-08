@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ada.demo.utils.IdGenerator;
 import com.ada.pay.bean.TC020101ReqData;
 import com.ada.pay.bean.TC020101RspData;
+import com.ada.pay.common.APICommonTool;
 import com.ada.pay.service.TC020101Service;
 
 /**
@@ -18,6 +19,9 @@ import com.ada.pay.service.TC020101Service;
 @RequestMapping("/test")
 public class TestController {
     
+	@Autowired
+	private APICommonTool commonTool;
+	
     @Autowired
     private TC020101Service tC020101Service;
     
@@ -40,11 +44,6 @@ public class TestController {
 			e.printStackTrace();
 		}
     	return res;
-    }
-    
-    @PostMapping("/url")
-    public String url(@RequestBody TC020101ReqData req) {
-    	return "url";
     }
     
 }

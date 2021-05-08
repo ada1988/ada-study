@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 查询账户信息
  */
-public class TC020108ReqData extends ReqBase<TC020108ReqData>{
+public class TC020108ReqData extends ReqBase{
 	
 	private String accountNo;    //账户号  N
 

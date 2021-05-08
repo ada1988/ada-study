@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 扫码支付查询接口
  */
-public class TC020305ReqData extends ReqBase<TC020305ReqData>{
+public class TC020305ReqData extends ReqBase{
 	
 	private String orderNo;    //交易订单号  N
 

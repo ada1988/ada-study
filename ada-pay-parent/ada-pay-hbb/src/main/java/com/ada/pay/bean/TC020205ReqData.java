@@ -5,7 +5,7 @@ import java.util.List;
 /**   
  * 订单清分
  */
-public class TC020205ReqData extends ReqBase<TC020205ReqData>{
+public class TC020205ReqData extends ReqBase{
 	
 	private String refNo;    //平台订单NO  N
 	

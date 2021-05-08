@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 处理日志查询
  */
-public class TC020301ReqData extends ReqBase<TC020301ReqData>{
+public class TC020301ReqData extends ReqBase{
 	
 	private Integer reqDate;    //请求日期  N（格式:yyyymmdd）
 	

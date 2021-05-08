@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 企业开通钱包
  */
-public class TC020103ReqData extends ReqBase<TC020103ReqData>{
+public class TC020103ReqData extends ReqBase{
 	
 	private String phone;    //企业联系电话  N
 	

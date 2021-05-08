@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**   
  * 个人网银支付
  */
-public class TC020120ReqData extends ReqBase<TC020120ReqData>{
+public class TC020120ReqData extends ReqBase{
 	
 	private String accountNo;    //账户号  N
 	

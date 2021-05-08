@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**   
  * 钱包协议支付
  */
-public class TC020125ReqData extends ReqBase<TC020125ReqData>{
+public class TC020125ReqData extends ReqBase{
 	
 	private String refNo;    //平台订单No  N
 	

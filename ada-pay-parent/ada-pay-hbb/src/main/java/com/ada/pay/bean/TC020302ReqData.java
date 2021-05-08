@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 签署电子签章
  */
-public class TC020302ReqData extends ReqBase<TC020302ReqData>{
+public class TC020302ReqData extends ReqBase{
 	
 	private String name;    //名字  N
 	

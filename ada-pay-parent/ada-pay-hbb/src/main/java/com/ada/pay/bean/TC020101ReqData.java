@@ -3,7 +3,7 @@ package com.ada.pay.bean;
 /**   
  * 获取短信验证码
  */
-public class TC020101ReqData extends ReqBase<TC020101ReqData>{
+public class TC020101ReqData extends ReqBase{
 	
 	private String mobilePhone;  //手机号  N
 	
