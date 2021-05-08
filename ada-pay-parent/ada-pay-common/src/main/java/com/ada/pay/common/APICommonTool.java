@@ -72,4 +72,8 @@ public class APICommonTool {
 		return dyClient.commonRequest(baseUri, req);
 	}
 	
+	public String commonGetRequest(URI baseUri) throws Exception{
+		return dyClient.commonGetRequest(baseUri);
+	}
+	
 }

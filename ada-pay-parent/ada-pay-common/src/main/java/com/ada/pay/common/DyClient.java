@@ -14,4 +14,8 @@ public interface DyClient {
 	@Headers({"Content-Type: application/json","Accept: application/json"})
 	@RequestLine("POST")
 	public @ResponseBody String commonRequest(URI baseUri,@RequestBody Object req);
+	
+	@Headers({"Content-Type: application/json","Accept: application/json"})
+	@RequestLine("GET")
+	public @ResponseBody String commonGetRequest(URI baseUri);
 }
