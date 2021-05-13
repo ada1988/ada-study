@@ -6,4 +6,12 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>ada-pay-pab</artifactId>
+  
+  <dependencies>
+  	<dependency>
+				<groupId>ada-study</groupId>
+				<artifactId>ada-pay-common</artifactId>
+			</dependency>
+  </dependencies>
+  
 </project>

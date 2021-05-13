@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import com.ada.pay.utils.AdaSpringContextUtils;
 
 import feign.Feign;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
 import feign.Logger.Level;
 import feign.Target;
 import feign.codec.Decoder;
@@ -54,8 +56,18 @@ public class APICommonTool {
 		}
 		
 		LOG.info("::::::::::::::::::::::::::::Ada特别提醒，HTTP请求日志记录路径为：{}:::::::::::::::::::::::::::::::::::",path);
-		
-		dyClient = Feign.builder().logLevel(Level.FULL).logger(new feign.Logger.JavaLogger().appendToFile(path.toString()))
+		final Map<String,String> headers = (Map<String, String>) AdaSpringContextUtils.applicationContext.getBean("adaHeaders");
+		dyClient = Feign.builder().requestInterceptor(new RequestInterceptor() {
+			public void apply(RequestTemplate requestTemplate) {
+				LOG.info("::::::::::::::::::::::::::::玖库特别提醒，HTTP请求自定义Headers::::ST:::::::::::::::::::::::::::::::");
+				//添加头信息
+				for(String key:headers.keySet()) {
+					requestTemplate.header(key, headers.get(key));
+					LOG.info("::::::::::::::::::::::::::::[{}]:[{}]::::::::::::::::::::::::::::",key,headers.get(key));
+				}
+				LOG.info("::::::::::::::::::::::::::::玖库特别提醒，HTTP请求自定义Headers::::ED:::::::::::::::::::::::::::::::");
+			}
+			}).logLevel(Level.FULL).logger(new feign.Logger.JavaLogger().appendToFile(path.toString()))
 				 .encoder(new JacksonEncoder()).target(Target.EmptyTarget.create(DyClient.class));
     }
 	/**

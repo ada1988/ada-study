@@ -56,8 +56,10 @@ if (tableMeta != null && columnInfo.length > tableMeta.getFileds().size())<br />
 ######	ada-pay-demo   使用案例（pom添加依赖;启动类开启@EnableAdaPay注解;注入实现的接口，调用父类实现的requestApi方法）
 
 ###### 超简单的三方接口对接：<br />
-	前期仅需一人对接加密、解密等事项，其余繁杂的三方接口对接，可以交于初级工程师完成
-	前期实现仅需实现IBasicsService接口：
+ #####	前期仅需一人对接加密、解密等事项，其余繁杂的三方接口对接，可以交于初级工程师完成。
+	
+ #####	前期实现仅需实现IBasicsService接口：
+ 
 		/**
 		 * 服务请求:前置处理。  如获取公钥、私有、数据加密等
 		 * @param <Req>
@@ -75,4 +77,54 @@ if (tableMeta != null && columnInfo.length > tableMeta.getFileds().size())<br />
 		 */
 		public <Resp> RespBase<Resp> afterRequestHandler(String result,Class<Resp> clazz);
 		
+ #####	后期三方接口对接需要工作量的堆积：
+		
+  ########	针对每一个接口，实现reqData、respData实体。如下
+  
+			public class TC020106ReqData{
+	
+				private String accountNo;  //账户号码  N
+				private String bindNo;  //三方绑定编号  N
+				private String tradePassword; //交易密码  N
+				.....
+				get\set方法
+			}
+			public class TC020106RspData{
+				private String bizFlag;   //业务处理标志位	N
+				private String bizMsg;    //业务处理信息	Y
+				private String orderNo;   //交易订单号	Y
+				.....
+				get\set方法
+			}
+			
+  ########	针对每一个接口，继承APIDockBase类，实现URL的定义。如下
+		
+			@Service
+			public class TC020101Service extends APIDockBase<TC020101ReqData, TC020101RspData>{
+				@Value("${jiuku.bank.hbb.url}")
+				private String hbbUrl;
+			
+				@Override
+				protected String getUrl() {
+					return hbbUrl;
+				}
+			}
+		
+  ########	代码测试。如
+	
+		 	@Autowired
+	    	private TC020101Service tC020101Service;
+	    	
+	    	@PostMapping("/getSmsCode")
+		    public TC020101RspData getSmsCode(@RequestBody TC020101ReqData req) {
+		    	TC020101RspData res = null;
+		    	try {
+		    		req.setReqNo(IdGenerator.getUUID());
+		    		req.setTradeCode("020101");
+					res = tC020101Service.requestApi(req);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		    	return res;
+		    }
 
